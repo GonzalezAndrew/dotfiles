@@ -27,7 +27,7 @@ function gsync() {
 }
 
 function gstatus() {
-  python3 -m git_status_checker ~/Documents/GitHub
+  python3 -m git_status_checker "$1"
 }
 
 function gtag() {

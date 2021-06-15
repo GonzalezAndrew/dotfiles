@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# login to bw and set the environment variable BW_SESSION
+function bwl() {
+    local password="$1"
+    local code="$2"
+    echo $password
+    echo $code 
+    bw_session=$(bw login andrewgonzo23@gmail.com $password --method 0 --code $code --raw)
+    export BW_SESSION=$bw_session
+}
+
+# ls bw
+function bwls() {
+    bw list items | jq '.[].name'
+}
+
+# bw get an item
+function bwg() {
+    bw get item "$1" | jq '.'
+}
+
+# bw get git tokens
+function g(){
+
+    if [[ "$1" == 'work' ]]; then
+        GIT_TOKEN=$(bw get item GIT_TOKEN_WORK | jq '.login.password')
+    else
+        GIT_TOKEN=$(bw get item GIT_TOKEN | jq '.login.password')
+    fi
+    
+    if [ -z "${GIT_TOKEN}" ]; then
+        export "${GIT_TOKEN}"
+        green "Setting env var: GIT_TOKEN."
+    else
+        red "Error setting env var: GIT_TOKEN."
+    fi
+
+}
+
+# set alpaca paper trading account
+function paper() {
+    echo "Getting Alpaca Paper API credentils from bitwarden."
+
+    data=$(bw get item 'Alpaca Paper credentials' | jq '.fields | .[]')
+    key_id=$(jq '. | select(.name=="key_id") | .value' <<< $data)
+    secret_key=$(jq '. | select(.name=="secret_key") | .value' <<< $data)
+    url=$(jq '. | select(.name=="url") | .value' <<< $data)
+
+    echo "Setting the following Alpaca environment variables:\nAPCA_API_KEY_ID\t APCA_API_SECRET_KEY\t APCA_API_BASE_URL"
+    export APCA_API_KEY_ID=$key_id
+    export APCA_API_SECRET_KEY=$secret_key
+    export APCA_API_BASE_URL=$url
+}

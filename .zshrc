@@ -4,7 +4,7 @@
 #   @author Andrew Gonzalez
 #
 #
-export PATH=$HOME/bin:/usr/local/bin:/home/andy/.local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/home/$USER/.local/bin:$PATH
 export GOPATH=$HOME/go 
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$GOPATH/bin:$PATH
@@ -40,10 +40,13 @@ if [ -f "$HOME/.local/bin/virtualenvwrapper.sh" ]; then
     source "$(which virtualenvwrapper.sh)"
 fi
 
-# source rust cargo
-source ~/.cargo/env
+
 # source zsh extensions
 source ~/.zsh/aliases.zsh
 source ~/.zsh/completion.zsh
+
+# autocomplete for bitwarden cli
+eval "$(bw completion --shell zsh); compdef _bw bw;"
+
 # source starship
 eval "$(starship init zsh)"

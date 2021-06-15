@@ -1,0 +1,34 @@
+add_newline = true
+
+[line_break]
+disabled = false 
+
+[character]
+success_symbol = " [➟](bold green)" 
+error_symbol = "[✖](bold red) "
+
+[directory]
+truncation_length = 5
+truncation_symbol = "…/"
+disabled = false
+
+[username]
+style_user = "purple bold"
+style_root = "red bold"
+format = "[$user]($style):"
+disabled = false
+show_always = true
+
+[hostname]
+ssh_only = false
+format =  "[@$hostname](purple bold):"
+trim_at = ".companyname.com"
+disabled = false
+
+[terraform]
+format = "[ TF $version]($style) "
+
+[python]
+symbol = "🐍 "
+format = "[$symbol$version]($style) "
+style = "bold green"

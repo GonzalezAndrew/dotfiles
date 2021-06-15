@@ -10,3 +10,20 @@ function denter() {
  docker exec -it "$1" bash
  return 0
 }
+
+function dclear() {
+    docker system prune -a -f 
+}
+
+function dils() {
+    docker image ls -a --no-trunc
+}
+
+function dcls() {
+    docker container ls -a --no-trunc
+}
+
+function da() {
+    docker start -ai "$1"
+}
+
