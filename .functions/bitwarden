@@ -32,7 +32,7 @@ function vault_env() {
 
 
 function paper() {
-    data=$(bw get item Alpaca Paper credentials | jq '.fields')
+    data=$(bw get item 'Alpaca Paper credentials' | jq '.fields')
 
     export APCA_API_KEY_ID=$(echo "$data" | jq -r '.[0].value')
     export APCA_API_SECRET_KEY=$(echo "$data" | jq -r '.[1].value')
