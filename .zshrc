@@ -20,26 +20,34 @@ HIST_STAMPS="mm/dd/yyyy"
 
 plugins=(git)
 
+# source dircolors
+if command -v dircolors &>/dev/null; then
+  if test -r ~/.dircolors; then
+    eval "$(dircolors -b ~/.dircolors)"
+  else
+    eval "$(dircolors -b)"
+  fi
+fi
+
 # source global settings
-if [ -f "$HOME/.bash_aliases" ]; then
+if test -r "$HOME/.bash_aliases"; then
     source "$HOME/.bash_aliases"
 fi
 
 # Source the functions directory
-if [ -d ~/.functions ]; then
+if test -d ~/.functions; then
     for F in ~/.functions/*; do
         source $F
     done
 fi
 
 # source virtualenvwrapper
-if [ -f "$HOME/.local/bin/virtualenvwrapper.sh" ]; then
+if test -r "$HOME/.local/bin/virtualenvwrapper.sh"; then
     export WORKON_HOME=~/.virtualenvs
     export VIRTUALENVWRAPPER_PYTHON="$(which python3)"
     export VIRTUALENV_PYTHON="$(which python3)"
     source "$(which virtualenvwrapper.sh)"
 fi
-
 
 # source zsh extensions
 source ~/.zsh/aliases.zsh
