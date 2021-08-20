@@ -7,7 +7,7 @@ function denter() {
      return 0
  fi
 
- docker exec -it "$1" bash
+ docker exec -it "$1" /bin/sh -c "[-e /bin/bash ] && /bin/bash || /bin/sh"
  return 0
 }
 
@@ -25,5 +25,10 @@ function dcls() {
 
 function da() {
     docker start -ai "$1"
+}
+
+function workspace() {
+    docker run --detach --name workspace -v "$PWD:/tmp" --privileged --env-file <(env | grep GIT_TOKEN) $1
+    denter workspace
 }
 

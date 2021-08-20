@@ -56,20 +56,20 @@ background_opacity: 1.0
 
 font:
   normal:
-    family: "Mononoki Nerd Font"
+    family: "Hack"
     style: Regular
   bold:
-    family: "Mononoki Nerd Font" 
+    family: "Hack" 
     style: Bold
   italic:
-    family: "Mononoki Nerd Font"
+    family: "Hack"
     style: Italic
   bold_italic:
-    family: "Mononoki Nerd Font" 
+    family: "Hack" 
     style: Bold Italic
 
   # Point size
-  size: 12.0
+  size: 14.0
 
   offset:
     x: 0
@@ -106,7 +106,5 @@ key_bindings:
   - { key: C, mods: Control|Shift, action: Copy }
   - { key: Key0, mods: Control, action: ResetFontSize }
   - { key: Equals, mods: Control, action: IncreaseFontSize }
-  - { key: NumpadAdd, mods: Control, action: IncreaseFontSize }
-  - { key: NumpadSubtract, mods: Control, action: DecreaseFontSize }
   - { key: Minus, mods: Control, action: DecreaseFontSize }
   - { key: N, mods: Control, action: SpawnNewInstance }

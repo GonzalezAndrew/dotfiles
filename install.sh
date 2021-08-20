@@ -1,5 +1,14 @@
-#!/bin/sh
+#!/bin/bash
+
+# 
+#   Inspired by: https://github.com/mathiasbynens/dotfiles/blob/main/bootstrap.sh
+#
+
 set -e
+
+cd "$(dirname "${BASH_SOURCE}")"
+
+git pull origin master
 
 _update() {
     echo "Updating dotfiles at $HOME..."
@@ -11,30 +20,50 @@ _update() {
 
     if [ $shell = "bash" ]; then
         echo 'Configuring for bash'
-        ln -sf "$PWD/.bashrc" "$HOME/.bashrc"
-        ln -sf "$PWD/.profile" "$HOME/.profile"
-        ln -sf "$PWD/.profile" "$HOME/.bash_profile"
+        rsync --exclude ".git/" \
+            --exclude ".DS_Store" \
+            --exclude "install.sh" \
+            --exclude "README.md" \
+            --exclude ".zsh/" \
+            --exclude "img/" \
+            --exclude ".zshrc" \
+            -avh --no-perms . ~;
+        source ~/.profile;
     else
         echo 'Configuring for zsh'
-        ln -sf "$PWD/.zshrc" "$HOME/.zshrc"
-        ln -sf "$PWD/.zsh" "$HOME/.zsh"
-
+        rsync --exclude ".git/" \
+            --exclude ".DS_Store" \
+            --exclude "install.sh" \
+            --exclude "README.md" \
+            --exclude ".bashrc" \
+            --exclude ".bash_aliases" \
+            --exclude ".profile" \
+            --exclude "img/" \
+            -avh --no-perms . ~;
+            source ~/.zshrc;
     fi
 
-    echo 'linking shared dotfiles'
-    ln -sf "$PWD/.dircolors" "$HOME/.dircolors"
-    ln -sf "$PWD/.tmux.conf" "$HOME/.tmux.conf"
-    ln -sf "$PWD/.config" "$HOME/.config"
-    ln -sf "$PWD/.aws" "$HOME/.aws"
-    ln -sf "$PWD/.functions" "$HOME/.functions"
     mkdir -p "$HOME/.local/bin" || true
 
     echo 'done... :-)'
 }
 
+_prompt() {
+    if [ "$1" == "--force" -o "$1" == "-f" ]; then
+        _update;
+    else
+        read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1;
+        echo "";
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            _update;
+        fi;
+    fi;
+    unset _update;
+}
+
 case "$1" in
 update)
-    _update
+    _prompt "$2"
     ;;
 *)
     echo "Usage: $0 { update }"

@@ -14,13 +14,22 @@ alias ports='netstat -tulanp'
 alias h='history -i 1'
 alias history='history 1'
 alias j='jobs -l'
-alias speedtest='curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python3 -'
 alias ssha='eval $(ssh-agent) && ssh-add'
 alias svim='sudo vim'
 alias tn='tmux new -s'
 alias watch='watch -d'
-alias ls='gls --color=auto'
+alias ls='ls --color=auto'
 alias ll='ls -al --color=auto'
+
+
+# Reload the shell (i.e. invoke as a login shell)
+alias reload="exec ${SHELL} -l"
+
+# Print each PATH entry on a separate line
+alias path='echo -e ${PATH//:/\\n}'
+
+# Lock the screen (when going AFK)
+alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
 if command -v colordiff > /dev/null 2>&1; then
     alias diff="colordiff -Nuar"

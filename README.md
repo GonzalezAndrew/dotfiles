@@ -2,6 +2,8 @@
 
 My dotfiles.
 
+![terminal](img/terminal.png)
+
 ## Installation
 
 ```
@@ -13,6 +15,5 @@ $ ./install.sh update
 Updating dotfiles at /Users/andrewgonzalez...
 bash or zsh? (bash): bash
 Configuring for bash
-linking shared dotfiles
 done... :-)
 ```
