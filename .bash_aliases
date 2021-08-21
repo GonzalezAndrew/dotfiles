@@ -18,9 +18,6 @@ alias ssha='eval $(ssh-agent) && ssh-add'
 alias svim='sudo vim'
 alias tn='tmux new -s'
 alias watch='watch -d'
-alias ls='ls --color=auto'
-alias ll='ls -al --color=auto'
-
 
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec ${SHELL} -l"
