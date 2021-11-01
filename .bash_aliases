@@ -46,3 +46,12 @@ alias cpu10='ps auxf | sort -nr -k 3 | head -10'
 alias dir5='du -cksh * | sort -hr | head -n 5'
 alias dir10='du -cksh * | sort -hr | head -n 10'
 
+ssh() {
+    if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
+        tmux rename-window "$(echo $* | cut -d @ -f 2)"
+        command ssh "$@"
+        tmux set-window-option automatic-rename "on" 1>/dev/null
+    else
+        command ssh "$@"
+    fi
+}
