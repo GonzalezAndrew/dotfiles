@@ -49,9 +49,22 @@ if test -r "$HOME/.local/bin/virtualenvwrapper.sh"; then
     source "$(which virtualenvwrapper.sh)"
 fi
 
-# source zsh extensions
-source ~/.zsh/aliases.zsh
-source ~/.zsh/completion.zsh
+# Source oh-my-zsh
+if test -f $ZSH/oh-my-zsh.sh; then
+    source $ZSH/oh-my-zsh.sh
+fi
+
+# set python repl
+if test -f ~/.pythonrc.py; then
+    export PYTHONSTARTUP=~/.pythonrc.py
+fi
+
+# Source zsh extensions
+if test -d ~/.zsh; then
+    for F in ~/.zsh/*; do
+        source $F
+    done
+fi
 
 # autocomplete for bitwarden cli
 eval "$(bw completion --shell zsh); compdef _bw bw;"
