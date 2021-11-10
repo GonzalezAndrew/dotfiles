@@ -12,23 +12,14 @@ truncation_length = 5
 truncation_symbol = "…/"
 disabled = false
 
-[username]
-style_user = "purple bold"
-style_root = "red bold"
-format = "[$user]($style):"
-disabled = false
-show_always = true
-
-[hostname]
-ssh_only = false
-format =  "[@$hostname](purple bold):"
-trim_at = ".companyname.com"
-disabled = false
-
 [terraform]
 format = "[ TF $version]($style) "
+disabled = true
 
 [python]
 symbol = "🐍 "
 format = "[$symbol$version]($style) "
 style = "bold green"
+
+[cmd_duration]
+disabled = false
