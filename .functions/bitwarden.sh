@@ -14,7 +14,7 @@ function bwg() {
     bw get item "$1" | jq '.login'
 }
 
-function g(){
+function git_token(){
     if [[ "$1" == 'work' ]]; then
         export GIT_TOKEN=$(bw get item GIT_TOKEN_WORK | jq -r '.login.password')
     else
