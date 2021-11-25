@@ -5,12 +5,13 @@
 #
 #
 export PATH=$HOME/bin:/usr/local/bin:/home/$USER/.local/bin:$PATH
-export GOPATH=$HOME/go 
 export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/opt/homebrew/bin
 export PATH=$GOPATH/bin:$PATH
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/.local/share
 export ZSH="$HOME/.oh-my-zsh"
+export GOPATH=$HOME/go 
 export GOBIN="$HOME/go/bin"
 export GO111MODULE="on"
 
@@ -19,15 +20,6 @@ HYPHEN_INSENSITIVE="true"
 HIST_STAMPS="mm/dd/yyyy"
 
 plugins=(git)
-
-# source dircolors
-if command -v dircolors &>/dev/null; then
-  if test -r ~/.dircolors; then
-    eval "$(dircolors -b ~/.dircolors)"
-  else
-    eval "$(dircolors -b)"
-  fi
-fi
 
 # source global settings
 if test -r "$HOME/.bash_aliases"; then
@@ -52,9 +44,10 @@ fi
 # source zsh extensions
 source ~/.zsh/aliases.zsh
 source ~/.zsh/completion.zsh
+source ~/.oh-my-zsh/oh-my-zsh.sh
 
 # autocomplete for bitwarden cli
 eval "$(bw completion --shell zsh); compdef _bw bw;"
 
 # source starship
-eval "$(starship init zsh)"
+#eval "$(starship init zsh)"

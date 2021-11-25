@@ -19,6 +19,7 @@ alias ssha='eval $(ssh-agent) && ssh-add'
 alias svim='sudo vim'
 alias tn='tmux new -s'
 alias watch='watch -d'
+alias reload='source ~/.zshrc && echo reloaded ~/.zshrc'
 
 if command -v colordiff > /dev/null 2>&1; then
     alias diff="colordiff -Nuar"
@@ -49,7 +50,3 @@ if [ -f /usr/bin/pacman ]; then
   alias upgrade='sudo pacman -Syu'
   alias install='sudo pacman -S'
 fi
-
-
-# Fun aliases 
-alias fish="perl ~/.functions/perl/fish"
