@@ -4,9 +4,9 @@
 #   @author Andrew Gonzalez
 #
 #
+export PATH=/opt/homebrew/bin:$PATH
 export PATH=$HOME/bin:/usr/local/bin:/home/$USER/.local/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:/opt/homebrew/bin
 export PATH=$GOPATH/bin:$PATH
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/.local/share
