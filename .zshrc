@@ -5,13 +5,13 @@
 #
 #
 export PATH=/opt/homebrew/bin:$PATH
+export GOPATH=$HOME/go 
 export PATH=$HOME/bin:/usr/local/bin:/home/$USER/.local/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$GOPATH/bin:$PATH
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/.local/share
 export ZSH="$HOME/.oh-my-zsh"
-export GOPATH=$HOME/go 
 export GOBIN="$HOME/go/bin"
 export GO111MODULE="on"
 
@@ -34,20 +34,23 @@ if test -d ~/.functions; then
 fi
 
 # source virtualenvwrapper
-if test -r "/usr/local/bin/virtualenvwrapper.sh"; then
+if test -r "$(which virtualenvwrapper.sh)"; then
     export WORKON_HOME=~/.virtualenvs
     export VIRTUALENVWRAPPER_PYTHON="$(which python3)"
     export VIRTUALENV_PYTHON="$(which python3)"
     source "$(which virtualenvwrapper.sh)"
 fi
 
-# source zsh extensions
-source ~/.zsh/aliases.zsh
-source ~/.zsh/completion.zsh
-source ~/.oh-my-zsh/oh-my-zsh.sh
+if [ -f $ZSH/oh-my-zsh.sh ]; then
+    source $ZSH/oh-my-zsh.sh
+fi
 
-# autocomplete for bitwarden cli
+if [ -d ~/.zsh ]; then
+    for F in ~/.zsh/*.zsh; do
+        source $F
+    done
+fi
+
 eval "$(bw completion --shell zsh); compdef _bw bw;"
-
-# source starship
-#eval "$(starship init zsh)"
+eval "$(starship init zsh)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
