@@ -1,6 +1,6 @@
 import readline
 import rlcompleter
-import os 
+import os
 
 try:
     # install rich for repl

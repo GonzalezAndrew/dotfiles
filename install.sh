@@ -10,6 +10,15 @@ cd "$(dirname "${BASH_SOURCE}")"
 
 git pull origin master
 
+_install_brew() {
+    echo "Install brew from Brewfile."
+    if [ -f ./Brewfile ]; then
+        brew bundle
+    else
+        echo "Brewfile not found."
+    fi
+}
+
 _update() {
     echo "Updating dotfiles at $HOME..."
 
@@ -43,8 +52,6 @@ _update() {
             source ~/.zshrc;
     fi
 
-    mkdir -p "$HOME/.local/bin" || true
-
     echo 'done... :-)'
 }
 
@@ -64,6 +71,13 @@ _prompt() {
 case "$1" in
 update)
     _prompt "$2"
+    ;;
+brew)
+    _install_brew
+    ;;
+all)
+    _prompt "$2"
+    _install_brew
     ;;
 *)
     echo "Usage: $0 { update }"

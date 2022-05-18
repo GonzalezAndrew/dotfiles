@@ -26,9 +26,9 @@ if test -r "$HOME/.bash_aliases"; then
     source "$HOME/.bash_aliases"
 fi
 
-# Source the functions directory
-if test -d ~/.functions; then
-    for F in ~/.functions/*; do
+# Source the binary directory
+if test -d ~/bin; then
+    for F in ~/bin/*; do
         source $F
     done
 fi
@@ -50,7 +50,3 @@ if [ -d ~/.zsh ]; then
         source $F
     done
 fi
-
-eval "$(bw completion --shell zsh); compdef _bw bw;"
-eval "$(starship init zsh)"
-eval "$(/opt/homebrew/bin/brew shellenv)"
