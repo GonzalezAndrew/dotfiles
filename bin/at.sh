@@ -24,7 +24,7 @@ list | --list | -ls )
     _ls_themes
     ;;
 change | --change | -c)
-    _change_theme
+    _change_theme "$2"
     ;;
 sync | --sync | -s)
     _sync

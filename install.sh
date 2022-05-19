@@ -31,6 +31,7 @@ _install_ohmyzsh() {
 
 _install_packages() {
     _pre
+    _install_ohmyzsh
     echo "Install brew formulas from Brewfile located in this repository."
     if [ -f ./Brewfile ]; then
         _command_exists brew || {
@@ -97,8 +98,8 @@ brew | --brew | -b)
     _install_packages
     ;;
 all | --all | -a)
-    _dotFiles
     _install_packages
+    _dotFiles
     ;;
 help | --help | -h)
     _help
