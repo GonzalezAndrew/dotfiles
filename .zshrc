@@ -22,13 +22,6 @@ HIST_STAMPS="mm/dd/yyyy"
 
 plugins=(git)
 
-# Source the binary directory
-if test -d ~/bin; then
-    for F in ~/bin/*; do
-        source $F
-    done
-fi
-
 # source virtualenvwrapper
 if test -r "$(which virtualenvwrapper.sh)"; then
     export WORKON_HOME=~/.virtualenvs
