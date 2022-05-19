@@ -16,7 +16,6 @@ alias history='history 1'
 alias j='jobs -l'
 alias speedtest='curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python3 -'
 alias ssha='eval $(ssh-agent) && ssh-add'
-alias svim='sudo vim'
 alias tn='tmux new -s'
 alias watch='watch -d'
 alias reload='source ~/.zshrc && echo reloaded ~/.zshrc'
@@ -40,14 +39,5 @@ alias cpu10='ps auxf | sort -nr -k 3 | head -10'
 alias dir5='du -cksh * | sort -hr | head -n 5'
 alias dir10='du -cksh * | sort -hr | head -n 10'
 
-# Package management
-if [ -f /usr/bin/apt ]; then
-  alias update='sudo apt update'
-  alias upgrade='sudo apt update && sudo apt dist-upgrade && sudo apt autoremove && sudo apt clean'
-  alias install='sudo apt install'
-fi
-if [ -f /usr/bin/pacman ]; then
-  alias update='sudo pacman -Syyy'
-  alias upgrade='sudo pacman -Syu'
-  alias install='sudo pacman -S'
-fi
+# Print each PATH entry on a separate line
+alias path='echo -e ${PATH//:/\\n}'
