@@ -12,14 +12,31 @@ _help() {
     echo "  help | --help | -h: Show this message."
 }
 
+_command_exists() {
+    command -v "$@" >/dev/null 2>&1
+}
+
 _pre() {
+    _command_exists git || {
+        echo 'git is not installed. Please install git before running this script.'
+        exit 1
+    }
     git pull origin master
 }
 
-_install_brew() {
+_install_ohmyzsh() {
+    echo "Installing oh-my-zsh."
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+}
+
+_install_packages() {
     _pre
     echo "Install brew formulas from Brewfile located in this repository."
     if [ -f ./Brewfile ]; then
+        _command_exists brew || {
+            echo 'brew is not installed. Please install homebrew before running this script.'
+            exit 1
+        }
         brew bundle
     else
         echo "Brewfile not found."
@@ -28,13 +45,13 @@ _install_brew() {
 }
 
 _dotFiles() {
-    read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1;
-    echo "";
+    read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1
+    echo ""
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         continue
     else
         exit 0
-    fi;
+    fi
 
     _pre
     echo "Updating dotfiles at $HOME..."
@@ -52,8 +69,8 @@ _dotFiles() {
             --exclude ".zsh/" \
             --exclude "img/" \
             --exclude ".zshrc" \
-            -avh --no-perms . ~;
-        source ~/.profile;
+            -avh --no-perms . ~
+        source ~/.profile
     else
         echo 'Configuring for zsh'
         rsync --exclude ".git/" \
@@ -64,8 +81,8 @@ _dotFiles() {
             --exclude ".bash_aliases" \
             --exclude ".profile" \
             --exclude "img/" \
-            -avh --no-perms . ~;
-            source ~/.zshrc;
+            -avh --no-perms . ~
+        source ~/.zshrc
     fi
 
     chmod 700 ~/.ssh
@@ -74,14 +91,14 @@ _dotFiles() {
 
 case "$1" in
 update | --update | -u)
-    _dotFiles;
+    _dotFiles
     ;;
 brew | --brew | -b)
-    _install_brew;
+    _install_packages
     ;;
 all | --all | -a)
-    _dotFiles;
-    _install_brew;
+    _dotFiles
+    _install_packages
     ;;
 help | --help | -h)
     _help

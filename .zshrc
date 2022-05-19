@@ -21,11 +21,6 @@ HIST_STAMPS="mm/dd/yyyy"
 
 plugins=(git)
 
-# source global settings
-if test -r "$HOME/.bash_aliases"; then
-    source "$HOME/.bash_aliases"
-fi
-
 # Source the binary directory
 if test -d ~/bin; then
     for F in ~/bin/*; do
@@ -41,10 +36,12 @@ if test -r "$(which virtualenvwrapper.sh)"; then
     source "$(which virtualenvwrapper.sh)"
 fi
 
+# source oh-my-zsh
 if [ -f $ZSH/oh-my-zsh.sh ]; then
     source $ZSH/oh-my-zsh.sh
 fi
 
+# source all .zsh custom scripts
 if [ -d ~/.zsh ]; then
     for F in ~/.zsh/*.zsh; do
         source $F
