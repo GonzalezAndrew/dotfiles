@@ -7,9 +7,9 @@ cd "$(dirname "${BASH_SOURCE}")"
 _help() {
     echo "Usage: $0 { update | brew | all }"
     echo "  update | --update | -u : Update dotfiles."
-    echo "  brew | --brew | -b : Install Homebrew and packages."
-    echo "  all | --all | -a : Update dotfiles and install Homebrew and packages."
-    echo "  help | --help | -h: Show this message."
+    echo "  brew   | --brew   | -b : Install Homebrew and packages."
+    echo "  all    | --all    | -a : Update dotfiles and install Homebrew and packages."
+    echo "  help   | --help   | -h: Show this message."
 }
 
 _command_exists() {
