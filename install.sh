@@ -1,27 +1,43 @@
 #!/bin/bash
 
-# 
-#   Inspired by: https://github.com/mathiasbynens/dotfiles/blob/main/bootstrap.sh
-#
-
 set -e
 
 cd "$(dirname "${BASH_SOURCE}")"
 
-git pull origin master
+_help() {
+    echo "Usage: $0 { update | brew | all }"
+    echo "  update | --update | -u : Update dotfiles."
+    echo "  brew | --brew | -b : Install Homebrew and packages."
+    echo "  all | --all | -a : Update dotfiles and install Homebrew and packages."
+    echo "  help | --help | -h: Show this message."
+}
+
+_pre() {
+    git pull origin master
+}
 
 _install_brew() {
-    echo "Install brew from Brewfile."
+    _pre
+    echo "Install brew formulas from Brewfile located in this repository."
     if [ -f ./Brewfile ]; then
         brew bundle
     else
         echo "Brewfile not found."
+        exit 1
     fi
 }
 
-_update() {
-    echo "Updating dotfiles at $HOME..."
+_dotFiles() {
+    read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1;
+    echo "";
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        continue
+    else
+        exit 0
+    fi;
 
+    _pre
+    echo "Updating dotfiles at $HOME..."
     shell="bash"
     printf "bash or zsh? (%s): " "${shell}"
     read -r val
@@ -52,34 +68,25 @@ _update() {
             source ~/.zshrc;
     fi
 
+    chmod 700 ~/.ssh
     echo 'done... :-)'
 }
 
-_prompt() {
-    if [ "$1" == "--force" -o "$1" == "-f" ]; then
-        _update;
-    else
-        read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1;
-        echo "";
-        if [[ $REPLY =~ ^[Yy]$ ]]; then
-            _update;
-        fi;
-    fi;
-    unset _update;
-}
-
 case "$1" in
-update)
-    _prompt "$2"
+update | --update | -u)
+    _dotFiles;
     ;;
-brew)
-    _install_brew
+brew | --brew | -b)
+    _install_brew;
     ;;
-all)
-    _prompt "$2"
-    _install_brew
+all | --all | -a)
+    _dotFiles;
+    _install_brew;
+    ;;
+help | --help | -h)
+    _help
     ;;
 *)
-    echo "Usage: $0 { update }"
+    _help
     ;;
 esac
