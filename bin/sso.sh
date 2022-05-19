@@ -1,21 +1,34 @@
 #!/usr/bin/env bash
 
-ssol() {
-    aws sso login --profile "$1"
-    export AWS_PROFILE="$1"
+_help() {
+    echo "Usage: $0 { login | list | sync }"
+    echo "  login  | --login | -l:  log into aws account using by passing profile name."
+    echo "  list   | --list  | -ls: list all aws profiles configured on the local machine."
+    echo "  help   | --help  | -h:  output the help definition."
 }
 
-ssot() {
-    echo "Setting credentials for AWS_PROFILE=$AWS_PROFILE"
-    export ACCESS_TOKEN=$(cat ~/.aws/sso/cache/9267db47bda609497aa24677865b725d98e64ea1.json|jq -r .accessToken)
-    
-    if [[ "$AWS_PROFILE" == "cdp-dev" ]]; then
-        export AWS_ACCESS_KEY_ID=$(cat ~/.aws/cli/cache/be*.json |jq -r .Credentials.AccessKeyId)
-        export AWS_SECRET_ACCESS_KEY=$(cat ~/.aws/cli/cache/be*.json |jq -r .Credentials.SecretAccessKey)
-        export AWS_SESSION_TOKEN=$(cat ~/.aws/cli/cache/be*.json |jq -r .Credentials.SessionToken)
-    else
-        export AWS_ACCESS_KEY_ID=$(cat ~/.aws/cli/cache/5*.json |jq -r .Credentials.AccessKeyId)
-        export AWS_SECRET_ACCESS_KEY=$(cat ~/.aws/cli/cache/5*.json |jq -r .Credentials.SecretAccessKey)
-        export AWS_SESSION_TOKEN=$(cat ~/.aws/cli/cache/5*.json |jq -r .Credentials.SessionToken)
-    fi
+
+_login() {
+    echo "Logging into aws account using profile: $1"
+    aws sso login --profile "$1" && (unset AWS_PROFILE && export AWS_PROFILE="$1")
+    echo "Please validated your credentials by checking for the environment variable 'AWS_PROFILE' to be set."
 }
+
+_list() {
+    aws configure list-profiles
+}
+
+case "$1" in
+list | --list | -ls )
+    _list
+    ;;
+login | --login | -l)
+    _login "$2"
+    ;;
+help | --help | -h)
+    _help
+    ;;
+*)
+    _help
+    ;;
+esac

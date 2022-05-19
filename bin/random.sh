@@ -1,9 +1,5 @@
 #!/bin/bash
 
-function weather() {
-    curl -L wttr.in
-}
-
 function speedtest() {
     curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python3 -
 }
