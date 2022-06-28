@@ -42,3 +42,6 @@ alias dir10='du -cksh * | sort -hr | head -n 10'
 
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
+
+
+alias fish='asciiquarium'
