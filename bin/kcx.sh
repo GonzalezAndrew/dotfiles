@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# ------------------------- utility functions ------------------------
+
+_command_exists() {
+    command -v "$@" >/dev/null 2>&1
+}
+
+# ----------------------------- commands -----------------------------
+
+_help() {
+    echo "Usage: kcx.sh [ list-ctx | set-ctx | current-ctx | get-ctx | help ]..."
+}
+
+_get_ctx(){
+    kubectl config get-contexts $1
+}
+
+_current_cxt(){
+    kubectl config current-context
+}
+
+_list_cxt(){
+    kubectl config get-contexts -o name
+}
+
+_set_cxt(){
+    echo "Setting context to $1, previous context was _current_ctx"
+    kubectl config use-context $1
+}
+
+
+case "$1" in
+list-ctx | --list-ctx | -l)
+    _list_cxt
+    ;;
+set-ctx | --set-ctx | -s)
+    _set_cxt $2
+    ;;
+get-ctx | --get-ctx | -g)
+    _get_ctx $2
+    ;;
+current-ctx | --current-ctx | -c)
+    _current_cxt
+    ;;
+help | --help | -h)
+    _help
+    exit 0
+    ;;
+*)
+    _help
+    exit 1
+    ;;
+esac
