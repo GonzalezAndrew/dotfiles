@@ -12,7 +12,8 @@ function denter() {
 }
 
 function dclear() {
-    docker system prune -a -f 
+    echo "Clearing all docker resources..."
+    docker system prune -a -f --volumes
 }
 
 function dils() {
@@ -32,3 +33,18 @@ function workspace() {
     denter workspace
 }
 
+case "$1" in
+    clean | rm | clear | -c)
+        dclear
+        ;;
+    list | ls | -ls)
+        dils
+        dcls
+        ;;
+    work | workspace | -w )
+        workspace $2
+        ;;
+    *)
+        echo "Usage: docker.sh [clean|list|work]"
+        ;;
+esac
