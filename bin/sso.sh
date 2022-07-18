@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 _help() {
-    echo "Usage: $0 { login | list | sync }"
+    echo "Usage: $0 { login | list | help }"
     echo "  login  | --login | -l:  log into aws account using by passing profile name."
     echo "  list   | --list  | -ls: list all aws profiles configured on the local machine."
     echo "  help   | --help  | -h:  output the help definition."
