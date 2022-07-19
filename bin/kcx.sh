@@ -9,7 +9,7 @@ _command_exists() {
 # ----------------------------- commands -----------------------------
 
 _help() {
-    echo "Usage: kcx.sh [ list-ctx | set-ctx | current-ctx | get-ctx | help ]..."
+    echo "Usage: kcx.sh [ list-ctx | set-ctx | current-ctx | get-ctx | list-all | help ]..."
 }
 
 _get_ctx(){
@@ -25,10 +25,23 @@ _list_cxt(){
 }
 
 _set_cxt(){
-    echo "Setting context to $1, previous context was _current_ctx"
-    kubectl config use-context $1
+    echo "Setting context to $1, previous context was $(_current_ctx)"
+    kubectl config use-context "$1"
 }
 
+_ls_namespace() {
+    kubectl get namespaces
+}
+
+_ls_all_ns_ctx() {
+    old_ctx=$(_current_cxt)
+    _list_cxt | while read -r cxt; do
+        _set_cxt "$cxt"
+        _ls_namespace
+    done
+
+    _set_cxt "$old_ctx"
+}
 
 case "$1" in
 list-ctx | --list-ctx | -l)
@@ -42,6 +55,9 @@ get-ctx | --get-ctx | -g)
     ;;
 current-ctx | --current-ctx | -c)
     _current_cxt
+    ;;
+list-all )
+    _ls_all_ns_ctx
     ;;
 help | --help | -h)
     _help
