@@ -25,7 +25,8 @@ _list_cxt(){
 }
 
 _set_cxt(){
-    echo "Setting context to $1, previous context was $(_current_ctx)"
+    current=$(_current_ctx)
+    echo "Setting context to $1, previous context was $current"
     kubectl config use-context "$1"
 }
 
