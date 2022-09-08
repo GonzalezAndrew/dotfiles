@@ -41,3 +41,6 @@ if [ -d ~/.zsh ]; then
         source $F
     done
 fi
+
+# load starship
+eval "$(starship init zsh)"
