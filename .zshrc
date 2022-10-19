@@ -15,6 +15,7 @@ export GOPATH=$HOME/go
 export GOBIN="$HOME/go/bin"
 export GO111MODULE="on"
 export PATH=$PATH:$GOPATH/bin
+export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 
 ZSH_THEME="robbyrussell"
 HYPHEN_INSENSITIVE="true"
