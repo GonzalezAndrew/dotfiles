@@ -16,6 +16,8 @@ export GOBIN="$HOME/go/bin"
 export GO111MODULE="on"
 export PATH=$PATH:$GOPATH/bin
 export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+export EDITOR="code"
+export K9S_EDITOR=$EDITOR
 
 ZSH_THEME="robbyrussell"
 HYPHEN_INSENSITIVE="true"
