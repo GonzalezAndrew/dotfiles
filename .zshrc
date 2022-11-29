@@ -11,13 +11,14 @@ export PATH=$GOPATH/bin:$PATH
 export PATH=$PATH:$HOME/.local/share
 export PATH=$PATH:~/bin
 export ZSH="$HOME/.oh-my-zsh"
-export GOPATH=$HOME/go 
+export GOPATH=$HOME/go
 export GOBIN="$HOME/go/bin"
 export GO111MODULE="on"
 export PATH=$PATH:$GOPATH/bin
 export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 export EDITOR="code"
 export K9S_EDITOR=$EDITOR
+export LEDGER_FILE="/Users/andy/github.com/GonzalezAndrew/ledger"
 
 ZSH_THEME="robbyrussell"
 HYPHEN_INSENSITIVE="true"
