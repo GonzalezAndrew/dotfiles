@@ -16,7 +16,7 @@ _change_theme() {
 }
 
 _sync() {
-    curl -L https://raw.githubusercontent.com/eendroroy/alacritty-theme/master/schemes.yaml --output ~/.config/alacritty/schemes.yml
+    curl -L https://raw.githubusercontent.com/alacritty/alacritty-theme/master/schemes.yaml --output ~/.config/alacritty/schemes.yml
 }
 
 case "$1" in
