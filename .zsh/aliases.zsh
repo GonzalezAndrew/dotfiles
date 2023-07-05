@@ -20,9 +20,8 @@ alias tn='tmux new -s'
 alias watch='watch -d'
 alias reload='source ~/.zshrc && echo reloaded ~/.zshrc'
 alias storage='df -H'
-alias weather='curl -L wttr.in'
 
-if command -v colordiff > /dev/null 2>&1; then
+if command -v colordiff >/dev/null 2>&1; then
     alias diff="colordiff -Nuar"
 else
     alias diff="diff -Nuar"
@@ -42,7 +41,6 @@ alias dir10='du -cksh * | sort -hr | head -n 10'
 
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
-
 
 alias fish='asciiquarium'
 
@@ -89,4 +87,9 @@ pre-ci-auto() {
         repo=$(_jq '.repository.nameWithOwner')
         gh pr merge "$pr_number" -R "$repo" --auto -d -m
     done
+}
+
+## freegpt-webui https://github.com/ramonvc/freegpt-webui
+gpt() {
+    docker run -d -p 1338:1338 ramonvc/freegpt-webui --name gpt
 }
