@@ -12,7 +12,9 @@ _login() {
     echo "Logging into aws account using profile: $1"
     aws sso login --profile "$1" 
     if [ -n "$AWS_PROFILE" ]; then
+        unset AWS_PROFILE  
     fi
+    export AWS_PROFILE="$1"
     echo "Please validated your credentials by checking for the environment variable 'AWS_PROFILE' to be set."
 }
 

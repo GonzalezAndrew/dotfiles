@@ -29,7 +29,7 @@ _list_eks_clusters() {
 }
 
 _all_clusters() {
-    _list_profiles | while read -r profile; do
+    _list_profiles | while read -r profile; do 
         _list_eks_clusters $profile | while read -r cluster; do
             _get_kubeconfig $cluster $profile
         done
